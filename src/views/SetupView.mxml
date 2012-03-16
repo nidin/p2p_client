@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Setup">
+	<fx:Declarations>
+		<s:RadioButtonGroup id="radiogroup1"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:TextInput y="39" width="90%" horizontalCenter="0"/>
+	<s:Label y="17" width="90%" horizontalCenter="0" text="Username"/>
+	<s:Button bottom="24" width="125" label="Update" horizontalCenter="0"/>
+	<s:HGroup y="92" width="90%" horizontalAlign="left" horizontalCenter="-1" verticalAlign="top">
+		<s:RadioButton label="Web" enabled="true" selected="true"/>
+		<s:RadioButton label="LAN"/>
+	</s:HGroup>
+</s:View>
