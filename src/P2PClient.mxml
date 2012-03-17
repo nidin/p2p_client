@@ -3,11 +3,20 @@
 								  xmlns:s="library://ns.adobe.com/flex/spark"
 								  applicationDPI="160"
 								  splashScreenImage="@Embed('assets/splash_screen.jpg')"
-								  splashScreenScaleMode="zoom">
-	<s:ViewNavigator label="Chat" width="100%" height="100%" firstView="views.ChatView"/>
-	<s:ViewNavigator label="Files" width="100%" height="100%" firstView="views.FilesView"/>
-	<s:ViewNavigator label="Setup" width="100%" height="100%" firstView="views.SetupView"/>
+								  splashScreenScaleMode="zoom" creationComplete="init()">
+	<s:ViewNavigator id="chat_view" label="Chat" width="100%" height="100%" firstView="views.ChatView"/>
+	<s:ViewNavigator id="file_view" label="Files" width="100%" height="100%" firstView="views.FilesView"/>
+	<s:ViewNavigator id="setup_view" label="Setup" width="100%" height="100%" firstView="views.SetupView"/>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import nid.p2p.CONFIG;
+			public function init():void
+			{
+				CONFIG.USER_NAME = "guest_" + (int(Math.random() * 1000));
+			}
+		]]>
+	</fx:Script>
 </s:TabbedViewNavigatorApplication>

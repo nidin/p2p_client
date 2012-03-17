@@ -5,9 +5,20 @@
 		<s:RadioButtonGroup id="radiogroup1"/>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:TextInput y="39" width="90%" horizontalCenter="0"/>
+	<fx:Script>
+		<![CDATA[
+import nid.p2p.CONFIG;
+		
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				CONFIG.USER_NAME = username.text;
+			}
+			
+		]]>
+	</fx:Script>
+	<s:TextInput id="username" y="39" width="90%" horizontalCenter="0"/>
 	<s:Label y="17" width="90%" horizontalCenter="0" text="Username"/>
-	<s:Button bottom="24" width="125" label="Update" horizontalCenter="0"/>
+	<s:Button bottom="24" width="125" label="Update" horizontalCenter="0" click="button1_clickHandler(event)" />
 	<s:HGroup y="92" width="90%" horizontalAlign="left" horizontalCenter="-1" verticalAlign="top">
 		<s:RadioButton label="Web" enabled="true" selected="true"/>
 		<s:RadioButton label="LAN"/>

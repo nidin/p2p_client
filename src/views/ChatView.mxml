@@ -1,17 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
-		xmlns:s="library://ns.adobe.com/flex/spark" title="{username}">
+		xmlns:s="library://ns.adobe.com/flex/spark" title="{username}" creationComplete="init()">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import nid.p2p.Client;
+			import nid.p2p.ClientStatus;
+			import nid.p2p.events.NetEvent;
+			import nid.p2p.Network;
 			[Bindable]
 			public static var username:String = "username";
+			
+			private var network:Network;
+			
+			public function init():void
+			{
+				trace('init');
+				network = Network.getInstance();
+				network.addEventListener(NetEvent.CONNECT, setStatus);
+				network.addEventListener(NetEvent.NEIGHBOR_CONNECT, updateClients);
+				network.addEventListener(NetEvent.NEIGHBOR_DISCONNECT, updateClients);
+				network.addEventListener(NetEvent.UPDATE_CLIENT, updateClients);
+				network.addEventListener(NetEvent.POST, updatePost);
+				network.connect();
+			}
+			
+			private function updatePost(e:NetEvent):void 
+			{
+				
+			}
+			
+			private function updateClients(e:NetEvent):void 
+			{
+				var clients:Array  = [];
+				var c:Vector.<Client> = network.neighbors;
+				for (var i:int = 0; i < c.length; i++)
+				{
+					clients.push(c[i].name);
+				}
+				user_list.dataProvider = new ArrayCollection(clients);
+			}
+			
+			private function setStatus(e:NetEvent):void 
+			{
+				trace('setStatus');
+				ClientStatus.STATUS = "online";
+				status_box.selected = true;
+				status_box.label = "online";
+			}
 		]]>
 	</fx:Script>
 	<s:actionContent>
-		<s:CheckBox x="-20" width="108" label="online" selected="true"/>
+		<s:CheckBox id="status_box" width="108" label="offline" selected="true"/>
 	</s:actionContent>
-	<s:List id="user_list" width="100%" height="100%" horizontalCenter="0" verticalCenter="0"></s:List>
+	<s:List id="user_list" width="100%" height="100%" horizontalCenter="0" verticalCenter="0">
+	</s:List>
 </s:View>
